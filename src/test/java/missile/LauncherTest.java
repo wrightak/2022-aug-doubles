@@ -6,31 +6,50 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class LauncherTest {
     @Test
-    void givenExpiredLaunchCodes_MissileIsNotLaunched_Dummy() {
-        Launcher.launchMissile(new DummyMissile(), new ExpiredLaunchCode());
+    void givenExpiredLaunchCodes_MissileIsNotLaunched_Spy() {
+        SpyMissile missile = new SpyMissile();
+
+        Launcher.launchMissile(missile, new ExpiredLaunchCode());
+
+        assertFalse(missile.launchWasCalled());
+        assertTrue(missile.disableWasCalled());
     }
 
     @Test
-    void givenExpiredLaunchCodes_MissileIsNotLaunched_Spy() {
-        // arrange - 準備
+    void givenUnsignedLaunchCodes_MissileIsNotLaunched_Spy() {
         SpyMissile missile = new SpyMissile();
 
-        // act - 実行
-        Launcher.launchMissile(missile, new ExpiredLaunchCode());
+        Launcher.launchMissile(missile, new UnsignedLaunchCode());
 
-        // assert - 確認
         assertFalse(missile.launchWasCalled());
+        assertTrue(missile.disableWasCalled());
+    }
+
+    @Test
+    void givenExpiredLaunchCodes_MissileIsNotLaunched_Mock() {
+        MockMissile mockMissile = new MockMissile();
+
+        Launcher.launchMissile(mockMissile, new ExpiredLaunchCode());
+
+        mockMissile.verifyCodeRedAbort();
+    }
+
+    @Test
+    void givenUnsignedLaunchCodes_MissileIsNotLaunched_Mock() {
+        MockMissile mockMissile = new MockMissile();
+
+        Launcher.launchMissile(mockMissile, new UnsignedLaunchCode());
+
+        mockMissile.verifyCodeRedAbort();
     }
 
     @Test
     void givenGoodLaunchCodes_MissileIsLaunched() {
-        // arrange - 準備
         SpyMissile missile = new SpyMissile();
 
-        // act - 実行
         Launcher.launchMissile(missile, new GoodLaunchCode());
 
-        // assert - 確認
         assertTrue(missile.launchWasCalled());
+        assertFalse(missile.disableWasCalled());
     }
 }

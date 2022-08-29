@@ -5,4 +5,9 @@ public class ExpiredLaunchCode implements LaunchCode {
     public boolean isExpired() {
         return true;
     }
+
+    @Override
+    public boolean isSigned() {
+        return true;
+    }
 }

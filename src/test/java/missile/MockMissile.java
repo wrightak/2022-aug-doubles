@@ -1,6 +1,9 @@
 package missile;
 
-public class SpyMissile implements Missile {
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+public class MockMissile implements Missile {
     private boolean launchWasCalled = false;
     private boolean disableWasCalled = false;
 
@@ -14,11 +17,8 @@ public class SpyMissile implements Missile {
         disableWasCalled = true;
     }
 
-    public boolean launchWasCalled() {
-        return launchWasCalled;
-    }
-
-    public boolean disableWasCalled() {
-        return disableWasCalled;
+    void verifyCodeRedAbort() {
+        assertFalse(launchWasCalled);
+        assertTrue(disableWasCalled);
     }
 }

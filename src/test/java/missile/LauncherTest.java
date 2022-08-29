@@ -23,7 +23,14 @@ class LauncherTest {
     }
 
     @Test
-    void givenValidLaunchCodes_MissileIsLaunched() {
+    void givenGoodLaunchCodes_MissileIsLaunched() {
+        // arrange - 準備
+        SpyMissile missile = new SpyMissile();
 
+        // act - 実行
+        Launcher.launchMissile(missile, new GoodLaunchCode());
+
+        // assert - 確認
+        assertTrue(missile.launchWasCalled());
     }
 }

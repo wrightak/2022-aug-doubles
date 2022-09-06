@@ -17,8 +17,13 @@ public class MockMissile implements Missile {
         disableWasCalled = true;
     }
 
-    void verifyCodeRedAbort() {
+    void verifyCodeRed() {
         assertFalse(launchWasCalled);
         assertTrue(disableWasCalled);
+    }
+
+    void verifyLaunch() {
+        assertTrue(launchWasCalled);
+        assertFalse(disableWasCalled);
     }
 }

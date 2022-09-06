@@ -1,11 +1,6 @@
 package missile;
 
-public class UnsignedLaunchCode implements LaunchCode {
-    @Override
-    public boolean isExpired() {
-        return false;
-    }
-
+public class UnsignedLaunchCode extends GoodLaunchCode {
     @Override
     public boolean isSigned() {
         return false;
